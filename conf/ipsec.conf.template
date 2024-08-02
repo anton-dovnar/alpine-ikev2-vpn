@@ -2,24 +2,38 @@ config setup
     uniqueids=never
 
 conn %default
-     ikelifetime=60m
-     keylife=20m
-     rekeymargin=3m
-     rekey=yes
-     keyingtries=3
-     keyexchange=ike
-     leftsubnet=0.0.0.0/0
-     right=%any
-     rightsourceip=10.28.0.0/24
-     dpdaction=clear
-     dpddelay=300s
-     dpdtimeout=30m
+    ikelifetime=60m
+    keylife=20m
+    rekeymargin=3m
+    keyingtries=3
+    keyexchange=ike
+    leftsubnet=0.0.0.0/0
+    right=%any
+    rightsourceip=10.28.0.0/24
+    dpdaction=restart
+    dpddelay=30s
+    dpdtimeout=1h
+    closeaction=none
+    inactivity=1h
+    reauth=no
+    rekey=no
+    auto=start
 
 conn IOS_Mac_IKEv2
+    ikelifetime=60m
+    keylife=20m
+    rekeymargin=3m
+    keyingtries=3
     keyexchange=ikev2
+    dpdaction=restart
+    dpddelay=30s
+    dpdtimeout=1h
+    closeaction=none
+    inactivity=1h
+    reauth=no
+    rekey=no
     ike=aes256-sha256-modp2048,3des-sha1-modp2048!
     esp=aes256-sha256,3des-sha1!
-    rekey=yes
     left=%defaultroute
     leftid=$HOST_IP
     leftsendcert=always
@@ -30,6 +44,5 @@ conn IOS_Mac_IKEv2
     rightsourceip=10.28.0.0/24
     rightsendcert=never
     eap_identity=%any
-    dpdaction=clear
     fragmentation=yes
     auto=start
