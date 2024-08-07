@@ -18,6 +18,7 @@ conn %default
     reauth=no
     rekey=no
     auto=start
+    forceencaps=yes
 
 conn IOS_Mac_IKEv2
     ikelifetime=60m
@@ -46,3 +47,4 @@ conn IOS_Mac_IKEv2
     eap_identity=%any
     fragmentation=yes
     auto=start
+    forceencaps=yes
