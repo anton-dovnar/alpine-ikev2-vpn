@@ -24,6 +24,21 @@ if [ -z "$RADIUS_SECRET" ]; then
   export RADIUS_SECRET=''
 fi
 
+tee /etc/logrotate.d/charon <<EOF
+/var/log/charon/*.log {
+    daily
+    rotate 7
+    compress
+    missingok
+    notifempty
+    create 0640 root root
+    postrotate
+        ipsec restart
+    endscript
+}
+EOF
+(crontab -l; echo "22 7 * * * /usr/sbin/logrotate -f /etc/logrotate.d/charon") | crontab -
+
 envsubst '
           ${ACCOUNTING}
           ${RADIUS_PORT}
