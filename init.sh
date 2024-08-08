@@ -24,6 +24,7 @@ if [ -z "$RADIUS_SECRET" ]; then
   export RADIUS_SECRET=''
 fi
 
+mkdir -p /var/log/charon/
 tee /etc/logrotate.d/charon <<EOF
 /var/log/charon/*.log {
     daily
